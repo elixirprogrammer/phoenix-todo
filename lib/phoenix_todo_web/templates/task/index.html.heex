@@ -1,28 +1,43 @@
-<h1>Listing Tasks</h1>
+<div class="row">
+  <div class="column column-60 column-offset-20">
 
-<table>
-  <thead>
-    <tr>
-      <th>Text</th>
-      <th>Completed</th>
+    <header>
+      <%= render "form.html", Map.put(assigns, :action, Routes.task_path(@conn, :create)) %>
+    </header>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for task <- @tasks do %>
-    <tr>
-      <td><%= task.text %></td>
-      <td><%= task.completed %></td>
+    <section>
+      <table>
+        <tbody>
+        <%= for task <- @tasks do %>
+          <tr>
+            <td>
+              <%= link to: Routes.task_path(@conn, :complete, task) do %> 
+                &#10004;
+              <% end %>
+            </td>
+            <td>
+              <%= link task.text, to: Routes.task_path(@conn, :edit, task) %>
+            </td>
+            <td>
+              <%= link "X", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
 
-      <td>
-        <span><%= link "Show", to: Routes.task_path(@conn, :show, task) %></span>
-        <span><%= link "Edit", to: Routes.task_path(@conn, :edit, task) %></span>
-        <span><%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+    <footer>
+      <small>0 todos left</small>
+      <div class="float-right">
+        <%= link to: Routes.task_path(@conn, :index) do %> 
+          <code>All</code>
+        <% end %>
+        <%= link "Active [0]", to: Routes.task_path(@conn, :index, status: :active) %>
+        <%= link "Completed [0]", to: Routes.task_path(@conn, :index, status: :completed) %>
+        <%= link "Clear Completed [0]", to: Routes.task_path(@conn, :clear) %>
+      </div>
+    </footer>
 
-<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>
+  </div>
+</div>

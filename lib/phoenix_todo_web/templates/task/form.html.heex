@@ -5,15 +5,6 @@
     </div>
   <% end %>
 
-  <%= label f, :text %>
-  <%= text_input f, :text %>
+  <%= text_input f, :text, placeholder: "What needs to be done?" %>
   <%= error_tag f, :text %>
-
-  <%= label f, :completed %>
-  <%= checkbox f, :completed %>
-  <%= error_tag f, :completed %>
-
-  <div>
-    <%= submit "Save" %>
-  </div>
 </.form>
