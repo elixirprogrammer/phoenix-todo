@@ -55,6 +55,12 @@ defmodule TodoWeb.TaskController do
   defp completed?(false), do: %{"completed" => "true"}
   defp completed?(true), do: %{"completed" => "false"}
 
+  def clear(conn, _params) do
+    Tasks.clear
+
+    redirect(conn, to: Routes.task_path(conn, :index))
+  end
+
   def delete(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
     {:ok, _task} = Tasks.delete_task(task)

@@ -47,6 +47,13 @@ defmodule Todo.TasksTest do
       assert task == Tasks.get_task!(task.id)
     end
 
+    test "clear/1 updates tasks completed to false" do
+      task = task_fixture()
+      clear = Tasks.clear
+
+      assert {1, _task} = clear
+    end
+
     test "delete_task/1 deletes the task" do
       task = task_fixture()
       assert {:ok, %Task{}} = Tasks.delete_task(task)

@@ -73,6 +73,11 @@ defmodule Todo.Tasks do
     |> Repo.update()
   end
 
+  def clear() do
+    from(t in Task, where: t.completed == true, select: t)
+    |> Repo.update_all(set: [completed: false])
+  end
+
   @doc """
   Deletes a task.
 
