@@ -31,17 +31,19 @@
       </table>
     </section>
 
+  <%= if not Enum.empty?(@tasks) do %>
     <footer>
-      <small>0 todos left</small>
+      <small><%= count_tasks(false, @tasks) %> todos left</small>
       <div class="float-right">
         <%= link to: Routes.task_path(@conn, :index) do %> 
           <code>All</code>
         <% end %>
-        <%= link "Active [0]", to: Routes.task_path(@conn, :index, status: :active) %>
-        <%= link "Completed [0]", to: Routes.task_path(@conn, :index, status: :completed) %>
-        <%= link "Clear Completed [0]", to: Routes.task_path(@conn, :clear) %>
+        <%= link "Active [#{count_tasks(false, @tasks)}]", to: Routes.task_path(@conn, :index, status: :active) %>
+        <%= link "Completed [#{count_tasks(true, @tasks)}]", to: Routes.task_path(@conn, :index, status: :completed) %>
+        <%= link "Clear Completed [#{count_tasks(true, @tasks)}]", to: Routes.task_path(@conn, :clear) %>
       </div>
     </footer>
+  <% end %>
 
   </div>
 </div>
