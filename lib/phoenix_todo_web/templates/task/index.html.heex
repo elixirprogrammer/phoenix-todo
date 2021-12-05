@@ -8,7 +8,7 @@
     <section>
       <table>
         <tbody>
-        <%= for task <- @tasks do %>
+        <%= for task <- filter_tasks(@conn.params, @tasks)  do %>
           <tr>
             <td>
               <%= link to: Routes.task_path(@conn, :complete, task) do %> 
@@ -38,8 +38,8 @@
         <%= link to: Routes.task_path(@conn, :index) do %> 
           <code>All</code>
         <% end %>
-        <%= link "Active [#{count_tasks(false, @tasks)}]", to: Routes.task_path(@conn, :index, status: :active) %>
-        <%= link "Completed [#{count_tasks(true, @tasks)}]", to: Routes.task_path(@conn, :index, status: :completed) %>
+        <%= link "Active [#{count_tasks(false, @tasks)}]", to: Routes.task_path(@conn, :index, completed: false) %>
+        <%= link "Completed [#{count_tasks(true, @tasks)}]", to: Routes.task_path(@conn, :index, completed: true) %>
         <%= link "Clear Completed [#{count_tasks(true, @tasks)}]", to: Routes.task_path(@conn, :clear) %>
       </div>
     </footer>

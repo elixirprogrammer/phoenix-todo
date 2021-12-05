@@ -18,4 +18,32 @@ defmodule Todo.TasksFixtures do
 
     task
   end
+
+  def tasks_fixture(attrs \\ %{}) do
+    {:ok, task1} =
+      attrs
+      |> Enum.into(%{
+        completed: false,
+        text: "some text"
+      })
+      |> Todo.Tasks.create_task()
+
+    {:ok, task2} =
+      attrs
+      |> Enum.into(%{
+        completed: false,
+        text: "some text2"
+      })
+      |> Todo.Tasks.create_task()
+
+    {:ok, task3} =
+      attrs
+      |> Enum.into(%{
+        completed: true,
+        text: "some text3"
+      })
+      |> Todo.Tasks.create_task()
+
+    [task2, task1, task3]
+  end
 end

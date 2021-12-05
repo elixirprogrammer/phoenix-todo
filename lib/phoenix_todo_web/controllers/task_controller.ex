@@ -5,12 +5,11 @@ defmodule TodoWeb.TaskController do
   alias Todo.Tasks.Task
 
   def index(conn, _params) do
-    tasks = Tasks.list_tasks()
     changeset = Tasks.change_task(%Task{})
 
     conn
-    |> assign(:tasks, tasks)
     |> assign(:changeset, changeset)
+    |> assign(:tasks, Tasks.list_tasks)
     |> render("index.html")
   end
 
